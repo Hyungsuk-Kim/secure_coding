@@ -1,1 +1,1 @@
-#This project is builded temporary for PT
+#This project is builded for PT
