@@ -6,15 +6,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Login Page</title>
-    <link rel="stylesheet" href="css/dukeshop.css">
 </head>
 <body>
+    <%-- 시스템 정보 : 어쩌구저쩌구 --%>
+    <!-- 시스템 정보 : 어쩌구저쩌구 -->
     <c:if test="${not empty requestScope.loginErrorMsg}" >
     <ul id="loginerrormsg">
         <li>${requestScope.loginErrorMsg}</li>
     </ul>
     </c:if>
-    <form action="<c:url value='/test?action=signin'/>" method="POST">
+    <form action="<c:url value='/weak?action=signin'/>" method="POST">
         <table id="logintable">
             <tr>
                 <td class="label">E-mail</td>
@@ -26,7 +27,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" name="login" value="로그인"></td>
+                <td><input type="submit" name="login" value="로그인(W)"></td>
             </tr>
         </table>
     </form>

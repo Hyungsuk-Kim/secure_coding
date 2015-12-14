@@ -16,14 +16,18 @@ import javax.servlet.http.HttpSession;
 import sku.secure.business.domain.Member;
 import sku.secure.business.service.MemberService;
 import sku.secure.business.service.MemberServiceImpl;
+import sku.secure.dataaccess.MemberDAOStatement;
 import sku.secure.helper.DataDuplicatedException;
 import sku.secure.helper.DataNotFoundException;
 
-public class TestController extends HttpServlet {
-	private static final long serialVersionUID = 2492384603547166871L;
-
+/**
+ * Servlet implementation class WeakController
+ */
+public class WeakController extends HttpServlet {
+	private static final long serialVersionUID = -2455735080780777722L;
+	
 	private MemberService getMemberServiceImplementation() {
-		return new MemberServiceImpl();
+		return new MemberServiceImpl(new MemberDAOStatement());
 	}
 	
 	private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,26 +58,11 @@ public class TestController extends HttpServlet {
 	}
 	
 	private void selectMember(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DataNotFoundException {
-		HttpSession session = request.getSession(false);
-    	if (session == null) {
-    		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "로그인이 필요합니다.");
-    		return;
-    	}
-    	Member member = (Member) session.getAttribute("loginMember");
-    	if (member == null) {
-    		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "로그인이 필요합니다.");
-    		return;
-    	}
-    	if (member.getRole() != Member.ADMIN) {
-    		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "관리자 계정만 접근할 수 있습니다.");
-    		return;
-    	}
-		
 		String email = request.getParameter("email");
 		Member selectedMember = this.getMemberServiceImplementation().getMemberByEmail(email);
 		
 		request.setAttribute("selectedMember", selectedMember);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("profileWeak.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -237,7 +226,7 @@ public class TestController extends HttpServlet {
     	}
     	
 		request.setAttribute("selectedMember", session.getAttribute("loginMember"));
-    	RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("profileWeak.jsp");
     	dispatcher.forward(request, response);
 	}
 
@@ -267,7 +256,7 @@ public class TestController extends HttpServlet {
     	
     	Member[] memberList = this.getMemberServiceImplementation().getMemberList(searchInfo);
     	request.setAttribute("memberList", memberList);
-	    	
+    	
     	RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
     	dispatcher.forward(request, response);
 	}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/kitsch">
+<Context path="/secure_coding">
   <Resource name="jdbc/sku"
         type="javax.sql.DataSource"
-        url="jdbc:oracle:thin:@203.90.51.114:1521:xe"
+        url="jdbc:oracle:thin:@220.67.115.237:1521:xe"
         driverClassName="oracle.jdbc.OracleDriver"
-        username="sku" password="sku"
+        username="secu" password="secu"
         maxActive="10" maxIdle="5" maxWait="5000" />
 </Context>

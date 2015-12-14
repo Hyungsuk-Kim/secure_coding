@@ -14,6 +14,10 @@ public class MemberServiceImpl implements MemberService {
 	public MemberServiceImpl() {
 		this.memberDao = new MemberDAOImpl();
 	}
+	
+	public MemberServiceImpl(MemberDAO dao) {
+		this.memberDao = dao;
+	}
 
 	@Override
 	public Member getMemberByEmail(String email) throws DataNotFoundException {
